@@ -174,7 +174,8 @@ useEffect(() => {
     const imageMove = imagemove.current;
 
     setTimeout(() => {
-      function getMouseDirection(e, element) {
+      function getMouseDirection(e: MouseEvent, element: HTMLElement) {
+
         const rect = element.getBoundingClientRect();
         const x = e.clientX - rect.left; // Mouse X relative to the element
         const middleX = rect.width / 4;
