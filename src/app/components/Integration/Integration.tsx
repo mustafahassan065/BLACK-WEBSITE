@@ -183,7 +183,7 @@ useEffect(() => {
       }
 
       function handleMouseMove(e: MouseEvent) {
-
+        if (!container) return;
         const deltaX = getMouseDirection(e, container);
         // Move text left or right based on mouse movement
         if (imageMove) {
