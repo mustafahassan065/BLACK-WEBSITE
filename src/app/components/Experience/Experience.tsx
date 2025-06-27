@@ -7,7 +7,7 @@ const Experience = () => {
   const useCardEffect = (cardNumber:number) => {
     const [cardStyle, setCardStyle] = useState({});
     const [infoStyle, setInfoStyle] = useState({});
-    const containerRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement | null>(null); // ✅ Add this
 
     useEffect(() => {
   const container = containerRef.current;
