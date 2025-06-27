@@ -10,48 +10,53 @@ const Experience = () => {
     const containerRef = useRef(null);
 
     useEffect(() => {
-      const container = containerRef.current;
-      const lightEffect = document.getElementById(
-        `experience-card-content${cardNumber}`
-      );
-      const outerLightEffects = document.getElementById(
-        cardNumber === 1 ? "light-outside" : `light-outside-${cardNumber}`
-      );
-      updateLightEffects(lightEffect, outerLightEffects, {
-        x: "50%",
-        y: "50%",
-        opacity: 0.1, // Low opacity initially
-      });
-      const handleInteractions = setupCardInteractions({
-        container,
-        lightEffect,
-        outerLightEffects,
-        setCardStyle,
-        setInfoStyle,
-        cardStyle,
-        infoStyle,
-      });
+  const container = containerRef.current;
+  if (!container) return;
 
-      container.addEventListener(
-        "mousemove",
-        handleInteractions.handleMouseMove
-      );
-      container.addEventListener(
-        "mouseleave",
-        handleInteractions.handleMouseLeave
-      );
+  const lightEffect = document.getElementById(
+    `experience-card-content${cardNumber}`
+  );
+  const outerLightEffects = document.getElementById(
+    cardNumber === 1 ? "light-outside" : `light-outside-${cardNumber}`
+  );
 
-      return () => {
-        container.removeEventListener(
-          "mousemove",
-          handleInteractions.handleMouseMove
-        );
-        container.removeEventListener(
-          "mouseleave",
-          handleInteractions.handleMouseLeave
-        );
-      };
-    }, [cardNumber, cardStyle, infoStyle]);
+  updateLightEffects(lightEffect, outerLightEffects, {
+    x: "50%",
+    y: "50%",
+    opacity: 0.1,
+  });
+
+  const handleInteractions = setupCardInteractions({
+    container,
+    lightEffect,
+    outerLightEffects,
+    setCardStyle,
+    setInfoStyle,
+    cardStyle,
+    infoStyle,
+  });
+
+  container.addEventListener(
+    "mousemove",
+    handleInteractions.handleMouseMove
+  );
+  container.addEventListener(
+    "mouseleave",
+    handleInteractions.handleMouseLeave
+  );
+
+  return () => {
+    container.removeEventListener(
+      "mousemove",
+      handleInteractions.handleMouseMove
+    );
+    container.removeEventListener(
+      "mouseleave",
+      handleInteractions.handleMouseLeave
+    );
+  };
+}, [cardNumber, cardStyle, infoStyle]);
+
 
     return { cardStyle, infoStyle, containerRef };
   };
