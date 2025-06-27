@@ -186,6 +186,8 @@ useEffect(() => {
         if (!container) return;
         const deltaX = getMouseDirection(e, container);
         // Move text left or right based on mouse movement
+        const imageMove = document.querySelector('.some-class') as HTMLElement | null;
+
         if (imageMove) {
           imageMove.style.position = 'absolute';
           imageMove.style.top = '34%';
