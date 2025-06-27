@@ -7,8 +7,8 @@ import data from '../../data/data.json';
 const Integration = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const imagemove = useRef<HTMLDivElement | null>(null);
-  const lineRef = useRef<HTMLElement | null>(null);
-  const lightRef = useRef<HTMLElement | null>(null);
+  const lineRef = useRef<HTMLDivElement | null>(null);
+  const lightRef = useRef<HTMLDivElement | null>(null);
   const prevScrollY = useRef(0);
   const hasEnteredRef = useRef(false);
 
