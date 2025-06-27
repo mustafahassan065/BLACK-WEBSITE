@@ -167,388 +167,42 @@ useEffect(() => {
 
 
 
+useEffect(() => {
+  const container = containerRef.current as HTMLElement | null;
+  const imageMove = imagemove.current as HTMLElement | null;
 
-  // shake all images in mouse cursur....
-  useEffect(() => {
-    const container = containerRef.current;
-    const imageMove = imagemove.current as HTMLElement | null;
+  setTimeout(() => {
+    function handleMouseMove(e: MouseEvent) {
+      if (!container || !imageMove) return;
+      const rect = container.getBoundingClientRect();
+      const deltaX = e.clientX - (rect.left + rect.width / 2);
 
+      imageMove.style.position = 'absolute';
+      imageMove.style.top = '34%';
+      imageMove.style.left = '51%';
+      imageMove.style.transition = '.8s ease-in-out';
+      imageMove.style.transform = `translate(${deltaX / 20}px, -50%)`;
+    }
 
-    setTimeout(() => {
-      function getMouseDirection(e: MouseEvent, element: HTMLElement) {
-
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left; // Mouse X relative to the element
-        const middleX = rect.width / 4;
-        return x - middleX;
+    function handleMouseLeave() {
+      if (imageMove) {
+        imageMove.style.transform = `translate(-50%, -50%)`;
       }
+    }
 
-      function handleMouseMove(e: MouseEvent) {
-        if (!container) return;
-        const deltaX = getMouseDirection(e, container);
-        // Move text left or right based on mouse movement
-        const imageMove = document.querySelector('.some-class') as HTMLElement | null;
-
-        if (imageMove) {
-          imageMove.style.position = 'absolute';
-          imageMove.style.top = '34%';
-          imageMove.style.left = '51%';
-          imageMove.style.transition = ".8 ease-in-out"
-          imageMove.style.transform = `translate(-50%, -50%) translateX(${-(deltaX / 50)}px)`; // Adjust movement strength as needed
-        }
-      }
-
-      function handleMouseLeave() {
-        // Reset text position on mouse leave
-        if (imageMove) {
-          imageMove.style.transform = `translate(-50%, -50%)`;
-        }
-      }
-
+    if (container) {
       container.addEventListener('mousemove', handleMouseMove);
       container.addEventListener('mouseleave', handleMouseLeave);
+    }
 
-      return () => {
+    return () => {
+      if (container) {
         container.removeEventListener('mousemove', handleMouseMove);
         container.removeEventListener('mouseleave', handleMouseLeave);
-      };
-    }, 1800);
-  }, []);
-
-  //card- 1 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate1.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
+      }
     };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle1({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle1({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle1]);  // Empty dependency array
-
-  //card- 2 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate2.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle2({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle2({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle2]);  // Empty dependency array
-
-  //card- 3 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate3.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle3({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle3({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle3]);  // Empty dependency array
-
-  //card- 4 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate4.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle4({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle4({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle4]);  // Empty dependency array
-
-  //card- 5 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate5.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle5({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle5({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle5]);  // Empty dependency array
-
-  //card- 6 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate6.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle6({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle6({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle6]);  // Empty dependency array
-
-  //card- 7 rotating codes..............
-  useEffect(() => {
-    const container = ImgRotate7.current;
-
-    const getMouseDirection = (e, element) => {
-      const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
-      const middleY = rect.height / 2;
-
-      const deltaX = x - middleX;
-      const deltaY = y - middleY;
-
-      return { deltaX, deltaY };
-    };
-
-    const handleMouseMove = (e) => {
-      const { deltaX, deltaY } = getMouseDirection(e, container);
-
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 2).toFixed(2);  // Adjust sensitivity
-      const rotateX = (deltaY / 2).toFixed(2);
-
-      setCardStyle7({
-        transform: `rotateY(${-rotateY}deg) rotateX(${-rotateX}deg)`,
-        transition: 'transform 0.2s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      setCardStyle7({
-        transform: 'rotateY(0deg) rotateX(0deg)',
-        transition: 'transform 0.5s ease',
-        transformStyle: 'preserve-3d',
-      });
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, [cardStyle7]);  // Empty dependency array
+  }, 1800);
+}, []);
 
   return (
     <section id="integration" data-section="Integration" className="section">
