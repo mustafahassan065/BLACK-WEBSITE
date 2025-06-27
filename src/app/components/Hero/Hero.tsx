@@ -9,13 +9,13 @@ import { MouseParallax } from 'react-just-parallax'
 import data from '../../data/data.json'
 
 const Hero = () => {
-  const heroTextHolderRef = useRef<HTMLDivElement | null>(null);
-  const meetTextRef = useRef<HTMLDivElement | null>(null);
-  const blackTextRef = useRef<HTMLDivElement | null>(null);
-  const iphoneImageref = useRef<HTMLDivElement | null>(null);
-  const logosSectionRef = useRef<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLElement | null>(null);
-  const textRef = useRef<HTMLDivElement | null>(null);
+  const heroTextHolderRef = useRef(null);
+  const meetTextRef = useRef(null);
+  const blackTextRef = useRef(null);
+  const iphoneImageref = useRef(null);
+  const logosSectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -67,10 +67,11 @@ const Hero = () => {
     const iphoneImageRef = iphoneImageref.current;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!container || !text || !iphoneImageRef) return;
       if (window.innerWidth <= 768) return;
 
-      const rect = container.getBoundingClientRect();
+      const rect = container?.getBoundingClientRect();
+      if (!rect || !text || !iphoneImageRef) return;
+
       const deltaX = e.clientX - (rect.left + rect.width / 2);
 
       gsap.to(text, {
@@ -104,7 +105,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="section" ref={containerRef}>
+    <section data-w-id="bbb1681c-62a0-7375-a529-1c7bec5a4a0e" className="section " ref={containerRef}>
       <div className='container no-paddings'>
         <div className='hero-section'>
           <div className="hero-section-text-holder" ref={heroTextHolderRef}>
@@ -123,18 +124,18 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="iphone-holder" ref={iphoneImageref} style={{ marginTop: '60px' }}>
-              <img
+            <div className="iphone-holder " ref={iphoneImageref} style={{ marginTop: '60px' }}>
+              <img 
                 src={data.iphone_cover}
-                loading="lazy"
-                alt=""
+                loading="lazy" 
+                alt="" 
                 className="iphone-image"
               />
               <div className="iphone-screen">
-                <img
+                <img 
                   src={data.iphone_screen}
-                  loading="lazy"
-                  alt=""
+                  loading="lazy" 
+                  alt="" 
                   className="iphone-screen-image"
                 />
               </div>
@@ -148,16 +149,16 @@ const Hero = () => {
             </div>
             <div className="from-wra-er">
               <div className="form-block w-form">
-                <form id="email-form" name="email-form" method="get">
+                <form id="email-form" name="email-form" data-name="Email Form" method="get" aria-label="Email Form">
                   <div className="from-holder">
-                    <input className="text-field-form w-input" maxLength={256} name="email" placeholder="Enter Your Email" type="email" required />
-                    <input type="submit" className="button from w-button" value="Start Free Trial" />
+                    <input className="text-field-form w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter Your Email" type="email" id="email-2" required />
+                    <input type="submit" data-wait="Please wait..." className="button from w-button" value="Start Free Trial" />
                   </div>
                 </form>
-                <div className="success-message w-form-done">
+                <div className="success-message w-form-done" role="region" aria-label="Email Form success">
                   <div>{data.hero_form_success}</div>
                 </div>
-                <div className="error-message w-form-fail">
+                <div className="error-message w-form-fail" role="region" aria-label="Email Form failure">
                   <div>{data.hero_form_error}</div>
                 </div>
               </div>
@@ -167,14 +168,9 @@ const Hero = () => {
 
         <div className="logo-grid-holder" id='logo-grid-holder' ref={logosSectionRef}>
           <div className="w-layout-grid logo-grid">
-            {[...Array(8)].map((_, i) => (
+            {[data.hero_logo_1, data.hero_logo_2, data.hero_logo_3, data.hero_logo_4, data.hero_logo_5, data.hero_logo_6, data.hero_logo_7, data.hero_logo_8].map((logo, i) => (
               <div key={i} className="logo-small-container">
-                <img
-                  src={data[`hero_logo_${i + 1}`]}
-                  loading="lazy"
-                  alt=""
-                  className="logo-small"
-                />
+                <img src={logo} loading="lazy" alt="" className="logo-small" />
               </div>
             ))}
           </div>
