@@ -4,7 +4,7 @@ import "./style.css";
 import data from "../../data/data.json";
 
 const Experience = () => {
-  const useCardEffect = (cardNumber) => {
+  const useCardEffect = (cardNumber:number) => {
     const [cardStyle, setCardStyle] = useState({});
     const [infoStyle, setInfoStyle] = useState({});
     const containerRef = useRef(null);
