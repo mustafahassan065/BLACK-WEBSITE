@@ -41,7 +41,8 @@ const Integration = () => {
     let element = scrollableDiv;
     let currentPosition = 100; // Start at initial transform value
     let targetPosition = 100; // Target position that will change with scroll
-    let animationId = null;
+    let animationId: number | null = null;
+
 
     while (element) {
       topPosition += element.offsetTop;
