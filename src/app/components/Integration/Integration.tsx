@@ -171,7 +171,8 @@ useEffect(() => {
   // shake all images in mouse cursur....
   useEffect(() => {
     const container = containerRef.current;
-    const imageMove = imagemove.current;
+    const imageMove = imagemove.current as HTMLElement | null;
+
 
     setTimeout(() => {
       function getMouseDirection(e: MouseEvent, element: HTMLElement) {
