@@ -5,8 +5,8 @@ import { ScrollParallax } from "react-just-parallax"
 import data from '../../data/data.json';
 
 const Integration = () => {
-  const containerRef = useRef(null);
-  const imagemove = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+const imagemove = useRef<HTMLDivElement | null>(null);
   const lineRef = useRef<HTMLElement | null>(null);
   const lightRef = useRef<HTMLElement | null>(null);
   const prevScrollY = useRef(0);
@@ -15,14 +15,13 @@ const Integration = () => {
  
 
   //card ref itmes...
-  const ImgRotate1 = useRef(null);
-  const ImgRotate2 = useRef(null);
-  const ImgRotate3 = useRef(null);
-  const ImgRotate4 = useRef(null);
-  const ImgRotate5 = useRef(null);
-  const ImgRotate6 = useRef(null);
-  const ImgRotate7 = useRef(null);
-
+  const ImgRotate1 = useRef<HTMLDivElement | null>(null);
+const ImgRotate2 = useRef<HTMLDivElement | null>(null);
+const ImgRotate3 = useRef<HTMLDivElement | null>(null);
+const ImgRotate4 = useRef<HTMLDivElement | null>(null);
+const ImgRotate5 = useRef<HTMLDivElement | null>(null);
+const ImgRotate6 = useRef<HTMLDivElement | null>(null);
+const ImgRotate7 = useRef<HTMLDivElement | null>(null);
   //cards states...
   const [cardStyle1, setCardStyle1] = useState({});
   const [cardStyle2, setCardStyle2] = useState({});
