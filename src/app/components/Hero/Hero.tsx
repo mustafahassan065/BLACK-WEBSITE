@@ -60,49 +60,49 @@ const Hero = () => {
       );
     });
   }, []);
-
   useEffect(() => {
-    const container = containerRef.current;
-    const text = textRef.current;
-    const iphoneImageRef = iphoneImageref.current;
+  const container = containerRef.current;
+  const text = textRef.current;
+  const iphoneImageRef = iphoneImageref.current;
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (window.innerWidth <= 768) return;
+  const handleMouseMove = (e: MouseEvent) => {
+    if (window.innerWidth <= 768) return;
 
-      const rect = container?.getBoundingClientRect();
-      if (!rect || !text || !iphoneImageRef) return;
+    const rect = container?.getBoundingClientRect();
+    if (!rect || !text || !iphoneImageRef) return;
 
-      const deltaX = e.clientX - (rect.left + rect.width / 2);
+    const deltaX = e.clientX - (rect.left + rect.width / 2);
 
-      gsap.to(text, {
-        x: -(deltaX / 60),
-        duration: 0.3,
-        ease: 'power3.out',
-      });
+    gsap.to(text, {
+      x: -(deltaX / 60),
+      duration: 0.3,
+      ease: 'power3.out',
+    });
 
-      gsap.to(iphoneImageRef, {
-        x: deltaX / 40,
-        duration: 0.3,
-        ease: 'power3.out',
-      });
-    };
+    gsap.to(iphoneImageRef, {
+      x: deltaX / 40,
+      duration: 0.3,
+      ease: 'power3.out',
+    });
+  };
 
-    const resetMouseEffects = () => {
-      gsap.to([text, iphoneImageRef], {
-        x: 0,
-        duration: 0.5,
-        ease: 'power3.out',
-      });
-    };
+  const resetMouseEffects = () => {
+    gsap.to([text, iphoneImageRef], {
+      x: 0,
+      duration: 0.5,
+      ease: 'power3.out',
+    });
+  };
 
-    container?.addEventListener('mousemove', handleMouseMove);
-    container?.addEventListener('mouseleave', resetMouseEffects);
+  container?.addEventListener('mousemove', handleMouseMove);
+  container?.addEventListener('mouseleave', resetMouseEffects);
 
-    return () => {
-      container?.removeEventListener('mousemove', handleMouseMove);
-      container?.removeEventListener('mouseleave', resetMouseEffects);
-    };
-  }, []);
+  return () => {
+    container?.removeEventListener('mousemove', handleMouseMove);
+    container?.removeEventListener('mouseleave', resetMouseEffects);
+  };
+}, []);
+
 
   return (
     <section data-w-id="bbb1681c-62a0-7375-a529-1c7bec5a4a0e" className="section " ref={containerRef}>
