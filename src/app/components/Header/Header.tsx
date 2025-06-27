@@ -7,12 +7,15 @@ import { isMobile } from "react-device-detect";
 const Header = () => {
   const [openMobileNavbar, setOpenMobileNavBar] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const sectionsRef = useRef([]);
+
+  // ✅ Fix: Properly typed ref for array of HTMLElements
+  const sectionsRef = useRef<HTMLElement[]>([]);
 
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll("section[data-section]")
-    );
+    ) as HTMLElement[];
+
     sectionsRef.current = sections;
 
     const observer = new IntersectionObserver(
@@ -38,7 +41,7 @@ const Header = () => {
     const handleScroll = () => {
       const firstSectionTop = sections[0]?.getBoundingClientRect().top || 0;
       if (firstSectionTop > window.innerHeight * 0.4) {
-        setActiveSection(""); // Reset when above first section
+        setActiveSection("");
       }
     };
 
@@ -56,7 +59,7 @@ const Header = () => {
     }, 1600);
   }, []);
 
-  const handleScrollToSection = (section) => {
+  const handleScrollToSection = (section: string) => {
     const targetSection = document.querySelector(
       `section[data-section="${section}"]`
     );
@@ -110,7 +113,9 @@ const Header = () => {
               {navItems.map((section) => (
                 <div className="nav-link-active-holder" key={section}>
                   <button
-                    className={`nav-link-holder w-inline-block ${activeSection === section ? "w--current" : ""}`}
+                    className={`nav-link-holder w-inline-block ${
+                      activeSection === section ? "w--current" : ""
+                    }`}
                     onClick={() => handleScrollToSection(section)}
                   >
                     <div className="nav-link-text-holder">
@@ -139,11 +144,7 @@ const Header = () => {
               onClick={() => setOpenMobileNavBar(!openMobileNavbar)}
             >
               <div className="center-box">
-                <img
-                  src={data.header_menu}
-                  loading="lazy"
-                  alt=""
-                />
+                <img src={data.header_menu} loading="lazy" alt="" />
               </div>
             </div>
           </div>
@@ -152,14 +153,13 @@ const Header = () => {
 
       {openMobileNavbar && (
         <div className="fixed top-16 left-0 w-[70%] bg-black shadow-lg z-500000 py-4 rounded-lg">
-          <nav
-            role="navigation"
-            className="flex flex-col items-center space-y-1"
-          >
+          <nav role="navigation" className="flex flex-col items-center space-y-1">
             {navItems.map((section) => (
               <div className="nav-link-active-holder" key={section}>
                 <button
-                  className={`nav-link-holder w-inline-block bg-black ${activeSection === section ? "w--current" : ""}`}
+                  className={`nav-link-holder w-inline-block bg-black ${
+                    activeSection === section ? "w--current" : ""
+                  }`}
                   onClick={() => handleScrollToSection(section)}
                 >
                   <div className="nav-link-text-holder">
