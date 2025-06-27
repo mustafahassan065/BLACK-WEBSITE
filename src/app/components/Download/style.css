@@ -1,0 +1,56 @@
+/* Add these to prevent layout shifts */
+.sticky {
+  position: sticky;
+  top: 65px;
+  z-index: 20;
+}
+
+.stickyForMObile {
+  position: sticky;
+  top: 100px;
+  z-index: 20;
+}
+
+/* Smooth scrolling for background */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y mandatory;
+  scroll-snap-align: start;
+}
+
+/* Slow scroll speed */
+.slow-scroll {
+  scroll-behavior: smooth;
+  scroll-timeline: auto;
+  scroll-timeline-axis: block;
+}
+
+/* Smooth background transitions */
+.smooth-bg {
+  transition: all 2s ease-out;
+}
+
+/* Enhanced smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0;
+}
+
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scroll speed */
+* {
+  scroll-behavior: smooth;
+}
+
+/* Slow scroll container */
+.slow-scroll-container {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+  scroll-snap-stop: always;
+  overscroll-behavior: contain;
+}

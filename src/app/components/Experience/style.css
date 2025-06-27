@@ -1,0 +1,43 @@
+.experience-cards-holder .experience-card-content {
+    position: relative;
+    transition: all 0.8 ease-in-out;
+}
+
+.experience-cards-holder .light-wrapper-in-front .light-outside {
+    position: relative;
+    transition: all 0.8 ease-in-out;
+}
+
+
+.experience-cards-holder .experience-card-content::before {
+    content: '';
+    position: absolute;
+    z-index: 10;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(rgba(250, 250, 250, 0.2), transparent, transparent);
+    width: 500px;
+    height: 500px;
+    opacity: var(--o);
+    inset: 2;
+    border-radius: 18px;
+
+}
+
+.experience-cards-holder .light-wrapper-in-front .light-outside::before {
+    content: '';
+    position: absolute;
+    z-index: 10;
+    top: var(--y);
+    left: var(--x);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(rgba(250, 250, 250, 0.9), transparent, transparent);
+    width: 500px;
+    height: 500px;
+    opacity: var(--o);
+    inset: 2;
+    border-radius: 18px;
+
+}
+

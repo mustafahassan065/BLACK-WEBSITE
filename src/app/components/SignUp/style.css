@@ -1,0 +1,30 @@
+.come-out-from-top {
+    animation: come-out-from-top .9s ease-in;
+}
+
+@keyframes come-out-from-top {
+    0% {
+        transform: translateY(-125px);
+
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+
+.come-out-from-down {
+    animation: come-out-from-down .7s ease-in;
+}
+
+@keyframes come-out-from-down {
+    0% {
+        transform: translateY(125px);
+
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
