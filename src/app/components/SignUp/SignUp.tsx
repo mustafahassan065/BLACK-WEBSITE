@@ -5,18 +5,17 @@ import { isMobile } from 'react-device-detect';
 
 const SignUp = () => {
   const [cardStyle, setCardStyle] = useState({});
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  //move mobile image by scrolling.............
+  // Move mobile image by scrolling
   useEffect(() => {
     const scrollableDiv = document.getElementById("sign-up");
     let topPosition = 0;
-    let element = scrollableDiv;
+    let element: HTMLElement | null = scrollableDiv as HTMLElement | null;
 
-    // Accumulate the offsetTop up the chain
     while (element) {
       topPosition += element.offsetTop;
-      element = element.offsetParent;
+      element = element.offsetParent as HTMLElement | null;
     }
 
     window.addEventListener("scroll", function () {
@@ -26,62 +25,49 @@ const SignUp = () => {
           document.getElementById("card-1-img")?.classList.add("come-out-from-top");
           document.getElementById("card-1-text")?.classList.add("come-out-from-down");
           document.getElementById("card-1-text2")?.classList.add("come-out-from-down");
-          //card-2..
           document.getElementById("card-2-img")?.classList.add("come-out-from-down");
           document.getElementById("card-2-text")?.classList.add("come-out-from-top");
           document.getElementById("card-2-text2")?.classList.add("come-out-from-top");
-          //card-4..
           document.getElementById("card-4-img")?.classList.add("come-out-from-down");
           document.getElementById("card-4-text")?.classList.add("come-out-from-top");
           document.getElementById("card-4-text2")?.classList.add("come-out-from-top");
         }
       } else {
         if (offset >= (topPosition + 280)) {
-          //card-1
           document.getElementById("card-1-img")?.classList.add("come-out-from-top");
           document.getElementById("card-1-text")?.classList.add("come-out-from-down");
           document.getElementById("card-1-text2")?.classList.add("come-out-from-down");
-          //card-2..
           document.getElementById("card-2-img")?.classList.add("come-out-from-down");
           document.getElementById("card-2-text")?.classList.add("come-out-from-top");
           document.getElementById("card-2-text2")?.classList.add("come-out-from-top");
-          //card-4..
           document.getElementById("card-4-img")?.classList.add("come-out-from-down");
           document.getElementById("card-4-text")?.classList.add("come-out-from-top");
           document.getElementById("card-4-text2")?.classList.add("come-out-from-top");
-
         }
       }
-
     });
+  }, []);
 
-  }, [])
-
-
-
-
-  //for move the B element of the box.....
+  // For rotating B logo
   useEffect(() => {
     const container = containerRef.current;
 
-    const getMouseDirection = (e, element) => {
+    const getMouseDirection = (e: MouseEvent, element: HTMLElement) => {
       const rect = element.getBoundingClientRect();
-      const x = e.clientX - rect.left; // Mouse X relative to the element
-      const y = e.clientY - rect.top;  // Mouse Y relative to the element
-      const middleX = rect.width / 2;  // Center of the element
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const middleX = rect.width / 2;
       const middleY = rect.height / 2;
-
       const deltaX = x - middleX;
       const deltaY = y - middleY;
-
       return { deltaX, deltaY };
     };
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!container) return;
       const { deltaX, deltaY } = getMouseDirection(e, container);
 
-      // Adjust rotation based on mouse position
-      const rotateY = (-deltaX / 4).toFixed(2);  // Adjust sensitivity
+      const rotateY = (-deltaX / 4).toFixed(2);
       const rotateX = (deltaY / 4).toFixed(2);
 
       setCardStyle({
@@ -99,16 +85,14 @@ const SignUp = () => {
       });
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
+    container?.addEventListener('mousemove', handleMouseMove);
+    container?.addEventListener('mouseleave', handleMouseLeave);
 
     return () => {
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      container?.removeEventListener('mousemove', handleMouseMove);
+      container?.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, [cardStyle]);  // Empty dependency array
-
-
+  }, [cardStyle]);
   return (
     <section data-section="Sign-up" id="sign-up" className="section">
 
