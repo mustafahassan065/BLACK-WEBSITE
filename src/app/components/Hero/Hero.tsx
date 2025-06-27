@@ -9,13 +9,13 @@ import { MouseParallax } from 'react-just-parallax'
 import data from '../../data/data.json'
 
 const Hero = () => {
-  const heroTextHolderRef = useRef(null);
-  const meetTextRef = useRef(null);
-  const blackTextRef = useRef(null);
-  const iphoneImageref = useRef(null);
-  const logosSectionRef = useRef(null);
-  const containerRef = useRef(null);
-  const textRef = useRef(null);
+  const heroTextHolderRef = useRef<HTMLDivElement | null>(null);
+  const meetTextRef = useRef<HTMLDivElement | null>(null);
+  const blackTextRef = useRef<HTMLDivElement | null>(null);
+  const iphoneImageref = useRef<HTMLDivElement | null>(null);
+  const logosSectionRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
+  const textRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     requestAnimationFrame(() => {
@@ -60,52 +60,53 @@ const Hero = () => {
       );
     });
   }, []);
+
   useEffect(() => {
-  const container = containerRef.current;
-  const text = textRef.current;
-  const iphoneImageRef = iphoneImageref.current;
+    const container = containerRef.current;
+    const text = textRef.current;
+    const iphoneImageRef = iphoneImageref.current;
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (window.innerWidth <= 768) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth <= 768) return;
+      if (!container || !text || !iphoneImageRef) return;
 
-    const rect = container?.getBoundingClientRect();
-    if (!rect || !text || !iphoneImageRef) return;
+      const rect = container.getBoundingClientRect();
+      const deltaX = e.clientX - (rect.left + rect.width / 2);
 
-    const deltaX = e.clientX - (rect.left + rect.width / 2);
+      gsap.to(text, {
+        x: -(deltaX / 60),
+        duration: 0.3,
+        ease: 'power3.out',
+      });
 
-    gsap.to(text, {
-      x: -(deltaX / 60),
-      duration: 0.3,
-      ease: 'power3.out',
-    });
+      gsap.to(iphoneImageRef, {
+        x: deltaX / 40,
+        duration: 0.3,
+        ease: 'power3.out',
+      });
+    };
 
-    gsap.to(iphoneImageRef, {
-      x: deltaX / 40,
-      duration: 0.3,
-      ease: 'power3.out',
-    });
-  };
+    const resetMouseEffects = () => {
+      if (!text || !iphoneImageRef) return;
 
-  const resetMouseEffects = () => {
-    gsap.to([text, iphoneImageRef], {
-      x: 0,
-      duration: 0.5,
-      ease: 'power3.out',
-    });
-  };
+      gsap.to([text, iphoneImageRef], {
+        x: 0,
+        duration: 0.5,
+        ease: 'power3.out',
+      });
+    };
 
-  container?.addEventListener('mousemove', handleMouseMove);
-  container?.addEventListener('mouseleave', resetMouseEffects);
+    container?.addEventListener('mousemove', handleMouseMove);
+    container?.addEventListener('mouseleave', resetMouseEffects);
 
-  return () => {
-    container?.removeEventListener('mousemove', handleMouseMove);
-    container?.removeEventListener('mouseleave', resetMouseEffects);
-  };
-}, []);
-
+    return () => {
+      container?.removeEventListener('mousemove', handleMouseMove);
+      container?.removeEventListener('mouseleave', resetMouseEffects);
+    };
+  }, []);
 
   return (
-    <section data-w-id="bbb1681c-62a0-7375-a529-1c7bec5a4a0e" className="section " ref={containerRef}>
+    <section data-w-id="bbb1681c-62a0-7375-a529-1c7bec5a4a0e" className="section" ref={containerRef}>
       <div className='container no-paddings'>
         <div className='hero-section'>
           <div className="hero-section-text-holder" ref={heroTextHolderRef}>
@@ -124,7 +125,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="iphone-holder " ref={iphoneImageref} style={{ marginTop: '60px' }}>
+            <div className="iphone-holder" ref={iphoneImageref} style={{ marginTop: '60px' }}>
               <img 
                 src={data.iphone_cover}
                 loading="lazy" 
@@ -149,10 +150,10 @@ const Hero = () => {
             </div>
             <div className="from-wra-er">
               <div className="form-block w-form">
-                <form id="email-form" name="email-form" data-name="Email Form" method="get" aria-label="Email Form">
+                <form id="email-form" name="email-form" method="get" aria-label="Email Form">
                   <div className="from-holder">
-                    <input className="text-field-form w-input" maxLength={256} name="email-2" data-name="Email 2" placeholder="Enter Your Email" type="email" id="email-2" required />
-                    <input type="submit" data-wait="Please wait..." className="button from w-button" value="Start Free Trial" />
+                    <input className="text-field-form w-input" maxLength={256} name="email-2" placeholder="Enter Your Email" type="email" id="email-2" required />
+                    <input type="submit" className="button from w-button" value="Start Free Trial" />
                   </div>
                 </form>
                 <div className="success-message w-form-done" role="region" aria-label="Email Form success">
@@ -166,7 +167,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="logo-grid-holder" id='logo-grid-holder' ref={logosSectionRef}>
+        <div className="logo-grid-holder" id="logo-grid-holder" ref={logosSectionRef}>
           <div className="w-layout-grid logo-grid">
             {[data.hero_logo_1, data.hero_logo_2, data.hero_logo_3, data.hero_logo_4, data.hero_logo_5, data.hero_logo_6, data.hero_logo_7, data.hero_logo_8].map((logo, i) => (
               <div key={i} className="logo-small-container">
@@ -180,7 +181,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default Hero;
