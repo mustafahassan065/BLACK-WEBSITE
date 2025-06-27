@@ -46,7 +46,8 @@ const Integration = () => {
 
     while (element) {
       topPosition += element.offsetTop;
-      element = element.offsetParent;
+      element = element.offsetParent as HTMLElement | null;
+
     }
 
     const initialTransform = 200;
